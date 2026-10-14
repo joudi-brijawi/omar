@@ -83,13 +83,21 @@
      }
 
      .season-card {
-         width: 100%;
-         max-width: 320px;
-         height: 240px;
+         width: 88%;
+         /* بياخد عرض مريح ومناسب جداً للشاشة */
+         max-width: 420px;
+         /* وسعنا الحد الأقصى ليطلع عريض ومرتب */
+         height: 180px;
+         /* قللنا الطول ليصير عريض ومتناسق بدل ما يضل مستطيل ضيق */
+         border-radius: 20px;
      }
 
      .season-card h2 {
-         font-size: 32px;
+         font-size: 34px;
+         display: flex;
+         align-items: center;
+         gap: 12px;
+         /* مسافة حلوة بين الإيموجي والكلمة */
      }
  }
 
