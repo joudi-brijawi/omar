@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الصفحة الرئيسية</title>
+    <link rel="stylesheet" href="st.css">
+</head>
+
+<body>
+
+    <main class="cards-container">
+
+        <!-- كارد الشتوي (رابط ينقلك لصفحة الشتوي) -->
+        <a href="wint.html" class="season-card winter-card">
+            <h2>شتوي ❄️</h2>
+        </a>
+
+        <!-- كارد الصيفي (رابط ينقلك لصفحة الصيفي) -->
+        <a href="summ.html" class="season-card summer-card">
+            <h2>صيفي ☀️</h2>
+        </a>
+
+    </main>
+
+    <!-- زر الإدارة العائم للوصول السريع للوحة التحكم -->
+    <a href="admin.html" class="admin-float-btn">➕ إضافة قطعة ⚙️</a>
+    <script>
+        document.getElementById('addProductForm').addEventListener('submit', async (e) => {
+            e.preventDefault(); // منع الصفحة من إعادة التحميل
+
+            // جمع البيانات من الفورم
+            const formData = new FormData();
+            formData.append('title', document.getElementById('title').value);
+            formData.append('description', document.getElementById('description').value);
+            formData.append('price', document.getElementById('price').value);
+
+            // جلب قيمة الأزرار المحددة (التشكيلة والقسم)
+            const season = document.querySelector('input[name="season"]:checked').value;
+            const category = document.querySelector('input[name="category"]:checked').value;
+
+            formData.append('season', season);
+            formData.append('category', category);
+
+            // جلب ملف الصورة
+            const imageFile = document.getElementById('image').files[0];
+            formData.append('image', imageFile);
+
+            try {
+                // إرسال البيانات للسيرفر
+                const response = await fetch('/api/products', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    alert('تم حفظ القطعة في خزانكتك بنجاح! 🥳');
+                    document.getElementById('addProductForm').reset(); // تصفير الحقول بعد النجاح
+                } else {
+                    alert('حدث خطأ أثناء الحفظ.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('حدث خطأ في الاتصال بالسيرفر.');
+            }
+        });
+    </script>
+</body>
+
+</html>

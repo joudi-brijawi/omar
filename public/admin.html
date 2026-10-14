@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - إضافة قطعة</title>
+    <!-- تأكدنا إنو اسم ملف التصميم متل ما عندك بالصورة -->
+    <link rel="stylesheet" href="st.css">
+</head>
+
+<body class="admin-body">
+
+    <a href="index.html" class="back-btn" style="margin: 20px;">← العودة للرئيسية</a>
+
+    <main class="admin-container">
+        <h1 class="page-title" style="margin-bottom: 20px; color: #2c3e50;">إضافة قطعة جديدة 👗</h1>
+
+        <form id="addProductForm" class="admin-form">
+            <div class="form-group">
+                <label>اسم القطعة:</label>
+                <input type="text" id="title" placeholder="مثال: فستان سهرة أحمر" required>
+            </div>
+
+            <div class="form-group">
+                <label>الوصف:</label>
+                <textarea id="description" rows="3" placeholder="اكتب تفاصيل القطعة هنا..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>السعر (ل.س):</label>
+                <input type="text" id="price" placeholder="مثال: 150,000" required>
+            </div>
+
+            <div class="form-group">
+                <label>التشكيلة:</label>
+                <div class="options-group">
+                    <input type="radio" id="season-summer" name="season" value="s">
+                    <label for="season-summer" class="option-btn">صيفي ☀️</label>
+
+                    <input type="radio" id="season-winter" name="season" value="w">
+                    <label for="season-winter" class="option-btn">شتوي ❄️</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>القسم:</label>
+                <div class="options-group">
+                    <input type="radio" id="cat-dwa" name="category" value="dwa">
+                    <label for="cat-dwa" class="option-btn">دوارة 👗</label>
+
+                    <input type="radio" id="cat-beat" name="category" value="beat">
+                    <label for="cat-beat" class="option-btn">تياب بيت 🏡</label>
+
+                    <input type="radio" id="cat-kanader" name="category" value="kanader">
+                    <label for="cat-kanader" class="option-btn">جزادين وكنادر 👡</label>
+
+                    <input type="radio" id="cat-tafa" name="category" value="tafa">
+                    <label for="cat-tafa" class="option-btn">تفاريع 👙</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>صورة القطعة:</label>
+                <input type="file" id="image" accept="image/*" required>
+            </div>
+
+            <button type="submit" class="submit-btn">حفظ القطعة 💾</button>
+        </form>
+    </main>
+
+    <!-- سكربت الإرسال المحدث -->
+    <script>
+        document.getElementById('addProductForm').addEventListener('submit', async (e) => {
+            e.preventDefault(); // منع الصفحة من التحديث
+
+            // فحص إذا تم اختيار التشكيلة والقسم
+            const seasonChecked = document.querySelector('input[name="season"]:checked');
+            const categoryChecked = document.querySelector('input[name="category"]:checked');
+
+            if (!seasonChecked || !categoryChecked) {
+                alert('⚠️ الرجاء اختيار التشكيلة والقسم قبل الحفظ!');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('title', document.getElementById('title').value);
+            formData.append('description', document.getElementById('description').value);
+            formData.append('price', document.getElementById('price').value);
+            formData.append('season', seasonChecked.value);
+            formData.append('category', categoryChecked.value);
+            formData.append('image', document.getElementById('image').files[0]);
+            try {
+                const response = await fetch('/api/products', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    alert('تم حفظ القطعة في خزانكتك بنجاح! 🥳');
+                    document.getElementById('addProductForm').reset();
+                } else {
+                    alert('حدث خطأ أثناء الحفظ.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('حدث خطأ في الاتصال بالسيرفر.');
+            }
+        });
+    </script>
+</body>
+
+</html>

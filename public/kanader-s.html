@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قسم دوارة - التشكيلة الصيفية</title>
+    <link rel="stylesheet" href="st.css">
+</head>
+
+<body>
+
+    <!-- زر العودة -->
+    <a href="summ.html" class="back-btn" style="margin: 20px;">← العودة للأقسام</a>
+
+    <main class="products-wrapper">
+        <h1 class="page-title">قسم دوارة 👗</h1>
+
+        <!-- الحاوية الفاضية اللي السيرفر رح يعبيها كاردات لحاله -->
+        <div id="products-container" class="products-container">
+            <!-- الكاردات رح تظهر هون تلقائياً -->
+        </div>
+    </main>
+
+    <!-- سكربت جلب البيانات من السيرفر -->
+    <script>
+        async function loadProducts() {
+            try {
+                const response = await fetch('/api/products?season=s&category=kanader');
+                // نطلب من السيرفر القطع اللي قسمها دوارة وموسمها صيفي
+                const products = await response.json();
+
+                const container = document.getElementById('products-container');
+                container.innerHTML = ''; // تفريغ الحاوية أولاً
+
+                if (products.length === 0) {
+                    container.innerHTML = '<p style="font-size: 18px; color: #7f8c8d;">لم تقم بإضافة أي قطع في هذا القسم بعد.</p>';
+                    return;
+                }
+
+                // بناء الكاردات لكل قطعة رجعت من السيرفر
+                products.forEach(product => {
+                    const card = `
+    <div class="product-card">
+        <img src="${product.image_url}" alt="${product.title}" class="product-img"/>
+        <div class="product-info">
+            <h3 class="product-title">${product.title}</h3>
+            <p class="product-desc">${product.description}</p>
+            <div class="product-price">${product.price} ل.س</div>
+            <!-- زر الحذف المربوط بالـ ID -->
+            <button onclick="deleteProduct(${product.id})" class="delete-btn">🗑️ حذف القطعة</button>
+        </div>
+    </div>`
+                        ;
+                    container.innerHTML += card;
+                });
+            } catch (error) {
+                console.error('خطأ في جلب البيانات:', error);
+            }
+        }
+        async function deleteProduct(id) {
+            if (confirm('هل أنت متأكد أنك تريد حذف هذه القطعة؟')) {
+                try {
+                    const response = await fetch('/api/products/' + id, { method: 'DELETE' });
+                    if (response.ok) {
+                        loadProducts(); // إعادة تحميل الكاردات فوراً لتختفي القطعة
+                    } else {
+                        alert('حدث خطأ أثناء الحذف');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            }
+        }
+        // تشغيل الوظيفة أول ما تفتح الصفحة
+        loadProducts();
+    </script>
+</body>
+
+</html>
