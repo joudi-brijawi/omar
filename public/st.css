@@ -1,552 +1,487 @@
-/* إعدادات أساسية */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+ /* إعدادات أساسية */
+ * {
+     box-sizing: border-box;
+     margin: 0;
+     padding: 0;
+     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ }
 
-/* خلفية الشاشة (لون أبيض مكسور ليبرز ألوان الكاردات) */
-body {
-    background-color: #fafafa;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
+ /* خلفية الشاشة */
+ body {
+     background-color: #f0f2f5;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     min-height: 100vh;
+ }
 
-/* الحاوية اللي بتضم الكاردين */
-.cards-container {
-    display: flex;
-    gap: 50px;
-    padding: 20px;
-    flex-wrap: wrap;
-    /* عشان ينزلو تحت بعض بشاشة الموبايل */
-    justify-content: center;
-}
+ /* الحاوية اللي بتضم كاردات الهوم */
+ .cards-container {
+     display: flex;
+     gap: 40px;
+     padding: 20px;
+     flex-wrap: wrap;
+     justify-content: center;
+     align-items: center;
+ }
 
-/* التنسيق المشترك للكاردين */
-.season-card {
-    text-decoration: none;
-    /* إخفاء خط الروابط */
-    width: 320px;
-    height: 450px;
-    border-radius: 25px;
-    /* حواف دائرية ناعمة */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+ /* التنسيق المشترك لكاردات الهوم (عرض وطول متناسق) */
+ .season-card {
+     text-decoration: none;
+     width: 300px;
+     height: 340px;
+     border-radius: 24px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     box-shadow: 0 12px 30px rgba(15, 23, 42, 0.15);
+     transition: transform 0.3s ease, box-shadow 0.3s ease;
+     position: relative;
+     overflow: hidden;
+ }
 
-/* حجم ولون النص جوا الكارد */
-.season-card h2 {
-    font-size: 45px;
-    color: #444;
-    /* رمادي غامق بيطلع أحلى من الأسود الصريح */
-    transition: transform 0.3s ease;
-}
+ /* حجم ولون النص جوا الكارد */
+ .season-card h2 {
+     font-size: 38px;
+     font-weight: 800;
+     color: #ffffff;
+     text-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
+     transition: transform 0.3s ease;
+     letter-spacing: 1px;
+ }
 
-/* ===== ألوان الكاردات ===== */
+ /* ===== ألوان الكاردات (درجات داكنة وفخمة) ===== */
 
-/* الكارد الشتوي (سماوي فاتح باستيل) */
-.winter-card {
-    background-color: #dcedff;
-    border: 3px solid #b6d8f2;
-    /* إطار خفيف يعطي جمالية */
-}
+ /* الكارد الشتوي (تدرج أزرق نيلي / كحلي ملكي غامق) */
+ .winter-card {
+     background: linear-gradient(145deg, #1e3a8a, #0f172a);
+     border: 2px solid #3b82f6;
+ }
 
-/* الكارد الصيفي (أصفر فاتح باستيل) */
-.summer-card {
-    background-color: #fff4cc;
-    border: 3px solid #ffe89e;
-}
+ /* الكارد الصيفي (تدرج كهرماني / خردلي دافئ غني) */
+ .summer-card {
+     background: linear-gradient(145deg, #d97706, #92400e);
+     border: 2px solid #f59e0b;
+ }
 
-/* ===== حركات التفاعل وقت تقرب الماوس ===== */
+ /* ===== حركات التفاعل وقت تقرب الماوس ===== */
+ .season-card:hover {
+     transform: translateY(-10px) scale(1.02);
+     box-shadow: 0 20px 35px rgba(0, 0, 0, 0.25);
+ }
 
-.season-card:hover {
-    transform: translateY(-15px);
-    /* الكارد بيطلع لفوق شوي */
-    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
-    /* الظل بيكبر */
-}
+ .season-card:hover h2 {
+     transform: scale(1.08);
+ }
 
-/* النص بيكبر شوي وقت تقرب الماوس */
-.season-card:hover h2 {
-    transform: scale(1.1);
-}
+ /* ===== شاشات الموبايل (Media Queries) للهوم ===== */
+ @media (max-width: 768px) {
+     .cards-container {
+         flex-direction: column;
+         align-items: center;
+         gap: 24px;
+     }
 
-/* ===== شاشات الموبايل (Media Queries) ===== */
-@media (max-width: 768px) {
-    .cards-container {
-        flex-direction: column;
-        /* بنجبر الكاردات تصير تحت بعض */
-        align-items: center;
-        gap: 30px;
-        /* بنخفف المسافة بيناتهم شوي للموبايل */
-    }
+     .season-card {
+         width: 100%;
+         max-width: 320px;
+         height: 240px;
+     }
 
-    .season-card {
-        width: 100%;
-        /* الكارد بياخد عرض الشاشة */
-        max-width: 350px;
-        /* بس ما بيتجاوز هاد الحد ليضل منظره حلو */
-        height: 300px;
-        /* بنقصر الطول شوي ليتناسب مع الموبايل */
-    }
+     .season-card h2 {
+         font-size: 32px;
+     }
+ }
 
-    .season-card h2 {
-        font-size: 35px;
-        /* بنصغر الخط شوي للموبايل */
-    }
-}
+ /* ===== تنسيق صفحة الأقسام (الصيفي والشتوي) ===== */
+ .categories-wrapper {
+     width: 100%;
+     padding: 40px 20px;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+ }
 
-/* ===== تنسيق صفحة الأقسام (الصيفي والشتوي) ===== */
+ .page-title {
+     font-size: 40px;
+     color: #2c3e50;
+     margin-bottom: 40px;
+     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+ }
 
-.categories-wrapper {
-    width: 100%;
-    padding: 40px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+ /* حاوية الكاردات الأربعة */
+ .categories-container {
+     display: flex;
+     justify-content: center;
+     gap: 25px;
+     width: 100%;
+     max-width: 1200px;
+     flex-wrap: wrap;
+ }
 
-.page-title {
-    font-size: 40px;
-    color: #2c3e50;
-    margin-bottom: 40px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-}
+ /* التصميم الأساسي لكارد القسم */
+ .category-card {
+     text-decoration: none;
+     flex: 1;
+     min-width: 240px;
+     height: 250px;
+     border-radius: 20px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     position: relative;
+     overflow: hidden;
+     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+     transition: transform 0.3s ease, box-shadow 0.3s ease;
+ }
 
-/* حاوية الكاردات الأربعة */
-.categories-container {
-    display: flex;
-    justify-content: center;
-    gap: 25px;
-    width: 100%;
-    max-width: 1200px;
-    flex-wrap: wrap;
-    /* للسماح بنزول الكاردات في الشاشات الأصغر */
-}
+ .card-content {
+     text-align: center;
+     color: #ffffff;
+     z-index: 2;
+     transition: transform 0.3s ease;
+ }
 
-/* التصميم الأساسي لكارد القسم */
-.category-card {
-    text-decoration: none;
-    flex: 1;
-    min-width: 240px;
-    /* تم التصغير قليلاً ليتسع لـ 4 كاردات في الشاشات الكبيرة */
-    height: 250px;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+ .card-content h2 {
+     font-size: 28px;
+     margin-bottom: 10px;
+     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+ }
 
-.card-content {
-    text-align: center;
-    color: #ffffff;
-    z-index: 2;
-    transition: transform 0.3s ease;
-}
+ .card-content p {
+     font-size: 16px;
+     opacity: 0.9;
+ }
 
-.card-content h2 {
-    font-size: 28px;
-    margin-bottom: 10px;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
-}
+ /* حركات الماوس لأقسام */
+ .category-card:hover {
+     transform: translateY(-10px);
+     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+ }
 
-.card-content p {
-    font-size: 16px;
-    opacity: 0.9;
-}
+ .category-card:hover .card-content {
+     transform: scale(1.08);
+ }
 
-/* حركات الماوس */
-.category-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-}
+ /* ألوان الصيفي */
+ .summer-page .dawara-card {
+     background: linear-gradient(135deg, #d35400, #c0392b);
+ }
 
-.category-card:hover .card-content {
-    transform: scale(1.08);
-}
+ .summer-page .home-card {
+     background: linear-gradient(135deg, #2980b9, #2c3e50);
+ }
 
-/* ====================================================
-   ألوان الصيفي (تدرجات دافئة وداكنة مستوحاة من الصيف)
-==================================================== */
-.summer-page .dawara-card {
-    background: linear-gradient(135deg, #d35400, #c0392b);
-    /* برتقالي/أحمر داكن */
-}
+ .summer-page .accessories-card {
+     background: linear-gradient(135deg, #8e44ad, #4a235a);
+ }
 
-.summer-page .home-card {
-    background: linear-gradient(135deg, #2980b9, #2c3e50);
-    /* أزرق داكن/كحلي */
-}
+ .summer-page .tafaree3-card {
+     background: linear-gradient(135deg, #c2185b, #880e4f);
+ }
 
-.summer-page .accessories-card {
-    background: linear-gradient(135deg, #8e44ad, #4a235a);
-    /* خمري/بنفسجي داكن */
-}
+ /* ألوان الشتوي */
+ .winter-page .dawara-card {
+     background: linear-gradient(135deg, #1f3b4d, #10212b);
+ }
 
-.summer-page .tafaree3-card {
-    background: linear-gradient(135deg, #c2185b, #880e4f);
-    /* وردي غامق/توتي داكن */
-}
+ .winter-page .home-card {
+     background: linear-gradient(135deg, #34495e, #1a252f);
+ }
 
-/* ====================================================
-   ألوان الشتوي (تدرجات باردة وعميقة مستوحاة من الشتاء)
-==================================================== */
-.winter-page .dawara-card {
-    background: linear-gradient(135deg, #1f3b4d, #10212b);
-    /* كحلي مطفي شديد الظلمة */
-}
+ .winter-page .accessories-card {
+     background: linear-gradient(135deg, #2c3e50, #000000);
+ }
 
-.winter-page .home-card {
-    background: linear-gradient(135deg, #34495e, #1a252f);
-    /* رمادي مزرق داكن */
-}
+ .winter-page .tafaree3-card {
+     background: linear-gradient(135deg, #4b0082, #190033);
+ }
 
-.winter-page .accessories-card {
-    background: linear-gradient(135deg, #2c3e50, #000000);
-    /* أسود وكحلي ليلي */
-}
+ /* الميديا كويريز لصفحة الأقسام */
+ @media (max-width: 768px) {
+     .page-title {
+         font-size: 30px;
+         margin-bottom: 30px;
+     }
 
-.winter-page .tafaree3-card {
-    background: linear-gradient(135deg, #4b0082, #190033);
-    /* نيلي/باذنجاني غامق جداً */
-}
+     .categories-container {
+         flex-direction: column;
+         align-items: center;
+         gap: 20px;
+     }
 
-/* ===== الميديا كويريز (شاشات الموبايل) ===== */
-@media (max-width: 768px) {
-    .page-title {
-        font-size: 30px;
-        margin-bottom: 30px;
-    }
+     .category-card {
+         width: 100%;
+         max-width: 380px;
+         height: 200px;
+     }
 
-    .categories-container {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
+     .card-content h2 {
+         font-size: 24px;
+     }
+ }
 
-    .category-card {
-        width: 100%;
-        max-width: 380px;
-        height: 200px;
-    }
-
-    .card-content h2 {
-        font-size: 24px;
-    }
-}
-
-/* =========================================
-   تنسيق صفحات المنتجات من الداخل (مثل قسم دوارة)
+ /* =========================================
+   تنسيق صفحات المنتجات من الداخل (مثل دوارة)
 ========================================= */
+ .products-wrapper {
+     width: 100%;
+     padding: 40px 20px;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+ }
 
-.products-wrapper {
-    width: 100%;
-    padding: 40px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+ .products-container {
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: center;
+     gap: 40px;
+     width: 100%;
+     max-width: 1200px;
+ }
 
-/* حاوية المنتجات: بتخلي الكاردات تنزل سطر جديد تلقائياً إذا تعبت الشاشة */
-.products-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 40px;
-    /* هي بتعمل مسافة 40 بيكسل بين الكاردات من كل الاتجاهات */
-    width: 100%;
-    max-width: 1200px;
-}
+ /* كارد المنتج الفردي */
+ .product-card {
+     background-color: #ffffff;
+     width: 320px;
+     border-radius: 15px;
+     overflow: hidden;
+     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+     margin-bottom: 30px;
+     transition: transform 0.3s ease, box-shadow 0.3s ease;
+     display: flex;
+     flex-direction: column;
+ }
 
-/* ===== كارد المنتج الفردي ===== */
-.product-card {
-    background-color: #ffffff;
-    width: 320px;
-    /* عرض الكارد */
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-    /* ظل خفيف وناعم */
+ .product-card:hover {
+     transform: translateY(-8px);
+     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+ }
 
-    /* المارجن اللي طلبته: بيضمن إنو دائماً في مسافة 30 بيكسل من تحت الكارد */
-    margin-bottom: 30px;
+ .product-img {
+     width: 100%;
+     height: 380px;
+     object-fit: cover;
+     border-bottom: 2px solid #f0f0f0;
+ }
 
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-}
+ .product-info {
+     padding: 20px;
+     display: flex;
+     flex-direction: column;
+     flex-grow: 1;
+ }
 
-/* حركة الكارد وقت تقرب الماوس */
-.product-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-}
+ .product-title {
+     font-size: 22px;
+     color: #2c3e50;
+     margin-bottom: 10px;
+ }
 
-/* تنسيق صورة المنتج */
-.product-img {
-    width: 100%;
-    height: 380px;
-    /* طول الصورة، فيك تطوله أو تقصره */
-    object-fit: cover;
-    /* بيضمن إنو الصورة تعبي المساحة بدون ما تتمغط أو تتشوه */
-    border-bottom: 2px solid #f0f0f0;
-}
+ .product-desc {
+     font-size: 15px;
+     color: #666666;
+     line-height: 1.6;
+     margin-bottom: 25px;
+     flex-grow: 1;
+ }
 
-/* حاوية المعلومات (العنوان، الوصف، السعر) */
-.product-info {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    /* هي الحركة بتخلي السعر دائماً ينزل لآخر الكارد حتى لو الوصف قصير */
-}
+ .product-price {
+     font-size: 20px;
+     font-weight: bold;
+     color: #c0392b;
+     border-top: 1px dashed #cccccc;
+     padding-top: 15px;
+     text-align: left;
+ }
 
-/* اسم المنتج */
-.product-title {
-    font-size: 22px;
-    color: #2c3e50;
-    /* كحلي غامق أنيق */
-    margin-bottom: 10px;
-}
+ /* ميديا كويريز لصفحة المنتجات */
+ @media (max-width: 768px) {
+     .products-container {
+         gap: 20px;
+         padding: 10px;
+     }
 
-/* وصف المنتج */
-.product-desc {
-    font-size: 15px;
-    color: #666666;
-    line-height: 1.6;
-    margin-bottom: 25px;
-    flex-grow: 1;
-}
+     .product-card {
+         width: 100%;
+         max-width: 380px;
+         margin-bottom: 20px;
+     }
 
-/* سعر المنتج */
-.product-price {
-    font-size: 20px;
-    font-weight: bold;
-    color: #c0392b;
-    /* أحمر داكن وفخم للسعر */
-    border-top: 1px dashed #cccccc;
-    /* خط متقطع خفيف بيفصل السعر عن الوصف */
-    padding-top: 15px;
-    text-align: left;
-    /* السعر بيكون عاليسار ليعطي شكل فاتورة مرتب */
-}
+     .product-img {
+         height: 300px;
+     }
 
-/* ===== الميديا كويريز لشاشات الموبايل (صفحة المنتجات) ===== */
-@media (max-width: 768px) {
-    .products-container {
-        gap: 20px;
-        /* تقليل المسافة بين الكاردات لتناسب شاشة الجوال */
-        padding: 10px;
-    }
+     .product-title {
+         font-size: 20px;
+     }
 
-    .product-card {
-        width: 100%;
-        /* الكارد بياخد العرض كامل */
-        max-width: 380px;
-        /* بس ما بيتجاوز هاد الرقم لحتى يضل مرتب */
-        margin-bottom: 20px;
-        /* تقليل المارجن السفلي شوي للموبايل */
-    }
+     .product-desc {
+         font-size: 14px;
+     }
 
-    .product-img {
-        height: 300px;
-        /* تقصير طول الصورة شوي عشان ما تاخد كل شاشة الموبايل */
-    }
+     .product-price {
+         font-size: 18px;
+     }
+ }
 
-    .product-title {
-        font-size: 20px;
-        /* تصغير عنوان المنتج شوي */
-    }
+ /* ===== زر لوحة التحكم العائم ===== */
+ .admin-float-btn {
+     position: fixed;
+     bottom: 30px;
+     right: 30px;
+     background: linear-gradient(135deg, #2c3e50, #1a252f);
+     color: white;
+     padding: 12px 20px;
+     border-radius: 30px;
+     text-decoration: none;
+     font-weight: bold;
+     font-size: 16px;
+     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+     z-index: 1000;
+     transition: transform 0.3s ease, box-shadow 0.3s ease;
+ }
 
-    .product-desc {
-        font-size: 14px;
-        /* تصغير خط الوصف ليكون مريح للقراءة */
-    }
+ .admin-float-btn:hover {
+     transform: translateY(-5px);
+     box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+ }
 
-    .product-price {
-        font-size: 18px;
-        /* تصغير السعر بشكل متناسق */
-    }
-}
+ @media (max-width: 768px) {
+     .admin-float-btn {
+         bottom: 20px;
+         right: 20px;
+         padding: 10px 15px;
+         font-size: 14px;
+     }
+ }
 
-/* ===== زر لوحة التحكم العائم ===== */
-.admin-float-btn {
-    position: fixed;
-    /* تثبيت الزر على الشاشة */
-    bottom: 30px;
-    /* مسافة من تحت */
-    right: 30px;
-    /* مسافة من اليمين */
-    background: linear-gradient(135deg, #2c3e50, #1a252f);
-    /* لون كحلي فخم */
-    color: white;
-    padding: 12px 20px;
-    border-radius: 30px;
-    /* شكل بيضاوي أنيق */
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 16px;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-    /* ظل ليعطيه بروز */
-    z-index: 1000;
-    /* لحتى يضل فوق كل شي بالصفحة */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.admin-float-btn:hover {
-    transform: translateY(-5px);
-    /* بيطلع لفوق شوي لما تقرب عليه */
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
-}
-
-/* تصغير الزر شوي على شاشات الموبايل */
-@media (max-width: 768px) {
-    .admin-float-btn {
-        bottom: 20px;
-        right: 20px;
-        padding: 10px 15px;
-        font-size: 14px;
-    }
-}
-
-/* =========================================
+ /* =========================================
    تنسيقات لوحة التحكم (Admin Panel)
 ========================================= */
-.admin-body {
-    background-color: #f4f7f6;
-}
+ .admin-body {
+     background-color: #f4f7f6;
+ }
 
-.admin-container {
-    max-width: 500px;
-    margin: 20px auto 40px;
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-}
+ .admin-container {
+     max-width: 500px;
+     margin: 20px auto 40px;
+     background: #ffffff;
+     padding: 30px;
+     border-radius: 20px;
+     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+ }
 
-.admin-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
+ .admin-form {
+     display: flex;
+     flex-direction: column;
+     gap: 20px;
+ }
 
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
+ .form-group {
+     display: flex;
+     flex-direction: column;
+     gap: 8px;
+ }
 
-.form-group label {
-    font-weight: bold;
-    color: #2c3e50;
-    font-size: 16px;
-}
+ .form-group label {
+     font-weight: bold;
+     color: #2c3e50;
+     font-size: 16px;
+ }
 
-.form-group input[type="text"],
-.form-group textarea,
-.form-group input[type="file"] {
-    padding: 12px;
-    border: 2px solid #e1e4e8;
-    border-radius: 12px;
-    font-size: 16px;
-    font-family: inherit;
-    transition: border 0.3s ease;
-    background-color: #f8f9fa;
-}
+ .form-group input[type="text"],
+ .form-group textarea,
+ .form-group input[type="file"] {
+     padding: 12px;
+     border: 2px solid #e1e4e8;
+     border-radius: 12px;
+     font-size: 16px;
+     font-family: inherit;
+     transition: border 0.3s ease;
+     background-color: #f8f9fa;
+ }
 
-.form-group input[type="text"]:focus,
-.form-group textarea:focus {
-    border-color: #2980b9;
-    outline: none;
-    background-color: #ffffff;
-}
+ .form-group input[type="text"]:focus,
+ .form-group textarea:focus {
+     border-color: #2980b9;
+     outline: none;
+     background-color: #ffffff;
+ }
 
-/* ===== تنسيق أزرار الاختيار (للقسم والتشكيلة) ===== */
-.options-group input[type="radio"] {
-    opacity: 0;
-    position: absolute;
-}
+ /* تنسيق أزرار الاختيار */
+ .options-group input[type="radio"] {
+     opacity: 0;
+     position: absolute;
+ }
 
-.options-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
+ .options-group {
+     display: flex;
+     flex-wrap: wrap;
+     gap: 10px;
+ }
 
-/* تنسيق زر الحذف */
-.delete-btn {
-    background-color: #e74c3c;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-top: 12px;
-    font-weight: bold;
-    font-size: 14px;
-    width: 100%;
-    transition: background 0.3s ease;
-}
+ .delete-btn {
+     background-color: #e74c3c;
+     color: white;
+     border: none;
+     padding: 10px;
+     border-radius: 8px;
+     cursor: pointer;
+     margin-top: 12px;
+     font-weight: bold;
+     font-size: 14px;
+     width: 100%;
+     transition: background 0.3s ease;
+ }
 
-.delete-btn:hover {
-    background-color: #c0392b;
-}
+ .delete-btn:hover {
+     background-color: #c0392b;
+ }
 
-.option-btn {
-    flex: 1;
-    min-width: 110px;
-    text-align: center;
-    padding: 12px 10px;
-    background-color: #f0f2f5;
-    border: 2px solid #e1e4e8;
-    border-radius: 12px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    color: #555;
-    transition: all 0.3s ease;
-    user-select: none;
-}
+ .option-btn {
+     flex: 1;
+     min-width: 110px;
+     text-align: center;
+     padding: 12px 10px;
+     background-color: #f0f2f5;
+     border: 2px solid #e1e4e8;
+     border-radius: 12px;
+     cursor: pointer;
+     font-size: 14px;
+     font-weight: bold;
+     color: #555;
+     transition: all 0.3s ease;
+     user-select: none;
+ }
 
-.option-btn:hover {
-    background-color: #e2e8f0;
-}
+ .option-btn:hover {
+     background-color: #e2e8f0;
+ }
 
-/* التغيير عند اختيار الزر */
-.options-group input[type="radio"]:checked+.option-btn {
-    background-color: #2c3e50;
-    border-color: #2c3e50;
-    color: white;
-    box-shadow: 0 4px 10px rgba(44, 62, 80, 0.25);
-    transform: scale(1.03);
-}
+ .options-group input[type="radio"]:checked+.option-btn {
+     background-color: #2c3e50;
+     border-color: #2c3e50;
+     color: white;
+     box-shadow: 0 4px 10px rgba(44, 62, 80, 0.25);
+     transform: scale(1.03);
+ }
 
-/* زر الإرسال */
-.submit-btn {
-    background: #27ae60;
-    color: white;
-    border: none;
-    padding: 15px;
-    font-size: 18px;
-    font-weight: bold;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
-    margin-top: 10px;
-}
+ .submit-btn {
+     background: #27ae60;
+     color: white;
+     border: none;
+     padding: 15px;
+     font-size: 18px;
+     font-weight: bold;
+     border-radius: 12px;
+     cursor: pointer;
+     transition: background 0.3s ease, transform 0.2s ease;
+     margin-top: 10px;
+ }
 
-.submit-btn:hover {
-    background: #219150;
-    transform: translateY(-2px);
-}
+ .submit-btn:hover {
+     background: #219150;
+     transform: translateY(-2px);
+ }
