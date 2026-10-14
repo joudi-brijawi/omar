@@ -5,7 +5,7 @@ const path = require('path');
 const fs = require('fs');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // إعدادات أساسية لتمكين السيرفر من قراءة الملفات
 app.use(express.static('public'));
@@ -102,5 +102,5 @@ app.delete('/api/products/:id', (req, res) => {
 
 // تشغيل السيرفر
 app.listen(PORT, '0.0.0.0', () => {
-    console.log(`done http://localhost:3000`);
+    console.log(`Server is running on port ${PORT}`);
 });
